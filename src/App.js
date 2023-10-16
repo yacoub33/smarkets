@@ -1,24 +1,39 @@
-import logo from './logo.svg';
-import './App.css';
+import Navbar from "./components/Navbar";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useLocation,
+} from "react-router-dom";
+import Football from "./screens/Football";
+import { useEffect } from "react";
+import Boxing from "./screens/Boxing";
+import MMA from "./screens/MMA";
+import AmericanFootball from "./screens/AmericanFootball";
 
 function App() {
+  function ScrollToTop() {
+    const { pathname } = useLocation();
+
+    useEffect(() => {
+      window.scrollTo(0, 0);
+    }, [pathname]);
+
+    return null;
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <>
+        <Navbar />
+        <ScrollToTop />
+        <Routes>
+          <Route path="/" element={<Football />} />
+          <Route path="/boxing" element={<Boxing />} />
+          <Route path="/mma" element={<MMA />} />
+          <Route path="/americanfootball" element={<AmericanFootball />} />
+        </Routes>
+      </>
+    </Router>
   );
 }
 
